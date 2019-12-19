@@ -4,6 +4,7 @@ const messageForm = document.getElementById('send-container')
 const messageInput = document.getElementById('message-input')
 
 const name = prompt('What is your name?')
+//this is for ur own page. which doesnt necessarily needs to be sent to a server
 appendMessage('You joined')
 socket.emit('new-user', name)
 
@@ -20,14 +21,14 @@ socket.on('user-disconnected', name => {
 })
 
 messageForm.addEventListener('submit', e => {
-  e.preventDefault()
+  e.preventDefault()//prevent from refreshing the page
   const message = messageInput.value
-  appendMessage(`You: ${message}`)
+  appendMessage(`You: ${message}`)//this means you want to show what u sent on ur screen.
   socket.emit('send-chat-message', message)
-  messageInput.value = ''
+  messageInput.value = ''//clears out the message box everytime we send a message
 })
 
-function appendMessage(message) {
+function appendMessage(message) {//the function we want to append message.
   const messageElement = document.createElement('div')
   messageElement.innerText = message
   messageContainer.append(messageElement)
